@@ -6,10 +6,8 @@
     <button class="btn btn-primary d-flex" (click)="toogleIsNewBadge()">
         <span class="material-icons">{{
             showBadge ? "visibility_off" : "visibility"
-        }}</span>
-        <span class="ms-2"
-            >{{ showBadge ? "Cacher" : "Afficher" }} Nouveau</span
-        >
+            }}</span>
+        <span class="ms-2">{{ showBadge ? "Cacher" : "Afficher" }} Nouveau</span>
     </button>
 
     <hr />
@@ -17,43 +15,33 @@
     <div class="my-2">
         <div class="row">
             <div class="col-md-4">
-                <span>filtre actuel:</span>
+                <span class="filter"> le filtre actuel:</span>
                 <b>{{ hotelFilter }}</b>
             </div>
             <div class="col-md-8" form-group>
-                <input
-                    type="text"
-                    class="form-control"
-                    [(ngModel)]="hotelFilter"
-                />
+                <input type="text" class="form-control" [(ngModel)]="hotelFilter" />
             </div>
         </div>
     </div>
 
     <div class="row row-cols-1 row-cols-md-4 mt-2">
-        <div class="col mb-4" *ngFor="let hotel of hotels">
+        <div class="col mb-4" *ngFor="let hotel of filteredHotels">
             <!-- *ngFor="let hotel of hotels est la directive for. hotels est en refence à hotels dans le Ts       -->
             <div class="card" style="width: 18rem">
-                <img
-                    [src]="hotel.imageUrl"
-                    [title]="hotel.hotelName"
-                    class="card-img-top"
-                    [alt]="hotel.alt"
-                />
+                <img [src]="hotel.imageUrl" [title]="hotel.hotelName | uppercase " class="card-img-top" [alt]="hotel.alt" />
                 <div class="card-body">
-                    <h5>{{ hotel.hotelName | uppercase }}</h5>
+                    <h5>{{ hotel.hotelName | titlecase }}</h5>
                     <p class="card-text">
                         {{ hotel.description }}
                     </p>
                     <p class="card-text">
                         {{
-                            hotel.price
-                                | currency : "EUR" : "symbol" : "1.2-2" : "fr"
-                        }}
+                        hotel.price
+                        | currency : "EUR" : "symbol" : "1.2-2" : "fr"
+                        }} replaceComma
                     </p>
                     <span class="badge bg-info rounded-pill" *ngIf="showBadge">
-                        Nouveau</span
-                    >
+                        Nouveau</span>
                 </div>
             </div>
         </div>
