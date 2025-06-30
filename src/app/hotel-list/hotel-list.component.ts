@@ -1,24 +1,22 @@
 import { CommonModule } from "@angular/common";
-import { Component, OnInit } from "@angular/core";
+import { Component, NgModule, OnInit } from "@angular/core";
 import { FormsModule } from "@angular/forms"; //formsModule permet d'utiliser ngModel pour des formes comme une barre de recherche,filtre etc.
 import { registerLocaleData } from "@angular/common";
 import localeFr from "@angular/common/locales/fr";
 
 registerLocaleData(localeFr, 'fr');
 import { IHotel } from "./hotel"; //ici, on importe l'interface IHotel du fichier hotel.ts
-
-
+import { ReplaceComma } from "../shared/pipes/replace-comma.pipe";
 
 @Component({
       selector: 'app-hotel-list',
       standalone: true,
-      imports: [CommonModule, FormsModule],
+      imports: [CommonModule, FormsModule, ReplaceComma, NgModule ],
 
       templateUrl: './hotel-list.component.html',
       styleUrls: ['./hotel-list.component.css'] //import du fichier externe css du composant
-
+      
 })
-
 
 
 export class HotelListComponent implements OnInit {
@@ -75,6 +73,7 @@ export class HotelListComponent implements OnInit {
 
       ngOnInit() {
             this.filteredHotels = this.hotels;
+            this.hotelFilter= 'mot';
       }
 
       public toogleIsNewBadge(): void {
